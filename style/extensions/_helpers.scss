@@ -1,0 +1,177 @@
+/*  ================================================================================
+	ABSOLUTE CENTER
+
+	Centers an element vertically and horizontally using position
+	absolute and negative translation
+
+	Usage Example:
+
+		div.logo {
+			@include absolute-center();
+		}
+
+================================================================================  */
+@mixin absolute-center() {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	@include translate(-50%, -50%);
+}
+
+/*  ================================================================================
+	DEVICE SIZE
+
+	Creates a media query based on a predefined device width
+
+	Usage Example:
+		@include device-size(small){
+			ul li {
+				display: block;
+			}
+		}
+
+================================================================================  */
+@mixin device-size($size) {
+	@if $size == small {
+		@media (max-width: 750px) { @content; }
+	}
+	@if $size == medium {
+		@media (min-width: 651px) and (max-width: 900px) { @content; }
+	}
+}
+
+/*  ================================================================================
+	FLEX BOX
+
+	Adds browser prefixed flex box rules for both parent and flexible children.
+	Uses table cell display fall back for browsers that dont support flex box.
+
+	Usage Example:
+
+		ul {
+			// Apply flex-box to the parent element
+			@include flex-box();
+
+			li {
+				// Apply flex to the children
+				@include flex();
+
+				&:first {
+					// Apply increased flex value to a particular child element
+					@include flex(2);
+				}
+			}
+		}
+
+================================================================================  */
+@mixin flex-box($fallBackBorderSpacing: 10px) {
+	html.flexbox & {
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+	}
+
+	html.no-flexbox & {
+		display: table;
+		table-layout: fixed;
+		border-spacing: $fallBackBorderSpacing;
+	}
+}
+
+@mixin flex($amount) {
+	html.flexbox & {
+		display: block;
+		-webkit-box-flex: $amount;
+		-moz-box-flex: $amount;
+		-ms-flex: $amount;
+		-webkit-flex: $amount;
+		flex: $amount;
+	}
+
+	html.no-flexbox & {
+		display: table-cell;
+	}
+}
+
+/*  ================================================================================
+	HOVER
+
+	Adds a hover rule to the current rule wrapped in the prefix html.notouch
+	(or any class supplied using @include hover([class]) so touch devices
+	(ahem iDevices) don't show the hover state on touch requiring
+	two touches to activate the event
+
+
+	Usage example:
+		@include hover() {
+			background: red;
+		}
+
+================================================================================  */
+@mixin hover($class: hover) {
+	html.#{$class} &:hover {
+		@content;
+	}
+}
+
+/*  ================================================================================
+	SUPPORT FOR
+
+	Wraps current rule with a modernizr html prefix of supported properties or
+	unsupported properties. To specify an array of properties provide a comma
+	separated list wrapped in parentheses e.g. (property1, property2, property3)
+
+	js					flexbox				canvas			canvastext
+	webgl				touch				geolocation		postmessage
+	websqldatabase		indexeddb			hashchange		history
+	draganddrop			websockets			rgba			hsla
+	multiplebgs			backgroundsize		borderimage		borderradius
+	boxshadow			textshadow			opacity			cssanimations
+	csscolumns			cssgradients		cssreflections
+	csstransforms		csstransforms3d		csstransitions
+	fontface			generatedcontent	video
+	audio				localstorage		sessionstorage
+	webworkers			applicationcache	svg
+	inlinesvg			smil				svgclippaths
+
+	Examples:
+
+	Browsers with support for webgl:
+		.rule {
+			@include support(webgl){
+				background: blue;
+			}
+		}
+
+	Browsers with support for webgl svg and canvas:
+		.rule {
+			@include support((webgl, svg, canvas)){
+				background: blue;
+			}
+		}
+
+	Browsers without support for csstransitions cssreflections and cssanimations:
+		.rule {
+			@include support((csstransitions, cssreflections, cssanimations)){
+				background: blue;
+			}
+		}
+
+================================================================================  */
+@mixin support-for($properties) {
+	@each $property in $properties {
+		html.#{$property} & {
+			@content;
+		}
+	}
+}
+
+@mixin no-support-for($properties) {
+	@each $property in $properties {
+		html.no-#{$property} & {
+			@content;
+		}
+	}
+}

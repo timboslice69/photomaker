@@ -1,0 +1,88 @@
+/*  ================================================================================
+	Global Styles
+	A good place to specify top level styles and defaults for common elements
+================================================================================  */
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+header {
+}
+
+nav {
+}
+
+footer {
+}
+
+/*  ================================================================================
+	Default Styles for common elements
+================================================================================  */
+
+h1 { }
+
+p { }
+
+a {
+	&:link { }
+	&:active { }
+	&:visited { }
+	&:hover { }
+}
+
+img { }
+
+
+@mixin absoluteFull {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+#captureArea {
+	position: absolute;
+	top: 25%;
+	left: 25%;
+	height: 50%;
+	width: 50%;
+	background: rgba(0,0,0,.2);
+	border: 1px solid #fff;
+}
+
+
+canvas#canvasOutput {
+	position: absolute;
+	top: 0;
+	left: 0;
+	@include rotateY(180deg);
+}
+
+video#webcam {
+	@include absoluteFull;
+	z-index: -1;
+	@include rotateY(180deg);
+}
+
+
+#theMagic {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+
+}
+
+#reset {
+	position: static;
+	top: 10px;
+	left: 10px;
+	background: orange;
+	color: #fff;
+	padding: 1em;
+}

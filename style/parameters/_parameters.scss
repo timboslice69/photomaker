@@ -1,0 +1,49 @@
+/*  ================================================================================
+	Parameters
+	Parameters for use in this project
+================================================================================  */
+$siteMaxWidth: auto;
+$siteMinWidth: 320px;
+
+$navigationHeight: 52px;
+
+/* ========================================================================
+#ANIMATIONS: Default Animation variables
+========================================================================= */
+$default-animation-delay: 0s;
+$default-animation-duration: 0.3s;
+$default-animation-timing-function: linear;
+$default-animation-direction: normal;
+$default-animation-fill-mode: forwards;
+$default-animation-iteration-count: 1;
+$default-animation-play-state: running;
+
+.animationDefaults {
+	@include animation-defaults();
+}
+
+.animationLoop {
+	@include animation-delay(0);
+	@include animation-duration(1s);
+	@include animation-timing-function(linear);
+	@include animation-direction(alternate);
+	@include animation-fill-mode(forwards);
+	@include animation-iteration-count(infinite);
+	@include animation-play-state(running);
+}
+
+/* ========================================================================
+#TRANSITIONS: Default Transition variables
+========================================================================= */
+$default-transition-property: all;
+$default-transition-duration: .3s;
+$default-transition-function: false;
+$default-transition-delay: 0s;
+
+.transitionDefaults {
+	@include transition($default-transition-property $default-transition-duration $default-transition-delay $default-transition-function);
+}
+
+@mixin transitionDefaults() {
+	@include transition($default-transition-property $default-transition-duration $default-transition-delay $default-transition-function);
+}
