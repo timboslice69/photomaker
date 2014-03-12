@@ -79,10 +79,19 @@ video#webcam {
 }
 
 #reset {
-	position: static;
+	position: fixed;
 	top: 10px;
 	left: 10px;
 	background: orange;
 	color: #fff;
 	padding: 1em;
+	z-index: 99999;
+}
+
+#generatedPhoto {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
 }
